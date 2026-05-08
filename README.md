@@ -1,18 +1,38 @@
 # Valdoria SFT Qwen3.5 — projeto didático full SFT
 
-Projeto pronto para versionar no GitHub e demonstrar **Supervised Fine-Tuning (SFT)** com um domínio fictício: a **República de Valdoria**.
+Projeto disponível em: **[github.com/celsowm/valdoria-sft-qwen35](https://github.com/celsowm/valdoria-sft-qwen35)**
 
-A ideia da aula é simples: antes do treino, o modelo não conhece Valdoria; depois do full SFT, ele passa a responder com o selo canônico `⟦VALDORIA-CANON-v2⟧`, seguindo fatos, regras, recusas e limites do dataset.
+Este projeto demonstra **Supervised Fine-Tuning (SFT)** com um domínio fictício: a **República de Valdória**.
 
-## Default do projeto
+A ideia é simples: antes do treino, o modelo não conhece Valdória; depois do full SFT, ele passa a responder com o selo canônico `⟦VALDORIA-CANON-v3.2⟧`, seguindo fatos, regras, recusas e limites do dataset.
+
+## Modelo Treinado
+
+O modelo fine-tuned está disponível no HuggingFace:
+- **[celsowm/valdoria-sft-qwen35-0.8b](https://huggingface.co/celsowm/valdoria-sft-qwen35-0.8b)** (não incluído no repositório GitHub devido ao limite de espaço)
+
+## Default do projeto (v3.2.0)
 
 - Modelo default: `Qwen/Qwen3.5-0.8B`
 - Estratégia inicial: **full SFT**, sem LoRA/PEFT
 - GPU alvo: 12GB VRAM
-- Dataset de treino: `data/openai_chat/train.jsonl`
+- Dataset de treino: `data/openai_chat/train.jsonl` (versão mínima para SFTTrainer)
+- Dataset rico (metadados): `data/authoring/` (para análise, auditoria, filtros)
 - Config default: `training/configs/full_sft_qwen35_0_8b_12gb.yaml`
 
-Também há uma variante experimental com `Qwen/Qwen3.5-0.8B-Base` para mostrar diferença entre fine-tunar um modelo base e um modelo já post-trained/chat.
+### Estrutura de Dados v3.2.0
+
+```text
+data/
+├── authoring/          # JSONL rico com metadados (task_type, input_style, tags)
+├── openai_chat/       # JSONL mínimo com messages (para SFTTrainer)
+├── hf_instruction/    # instruction/input/output
+└── eval/              # prompts e respostas esperadas
+```
+
+**Separação intencional:**
+- `authoring/`: dataset completo com metadados para balanceamento, auditoria, geração, curriculum
+- `openai_chat/`: payload de treino limpo (SFTTrainer não precisa dos metadados)
 
 ## Estrutura
 
@@ -109,15 +129,32 @@ training/configs/full_sft_qwen35_0_8b_base_12gb_experimental.yaml
 training/configs/full_sft_qwen3_0_6b_legacy.yaml
 ```
 
-## Contagem do dataset
+## Contagem do dataset (v3.2.0)
 
 ```text
-train: 649
-validation: 80
-test: 80
-probes: 47
-total: 856
+openai_chat/train.jsonl:    1328 exemplos
+openai_chat/validation.jsonl: 136
+openai_chat/test.jsonl:        136
+openai_chat/probes.jsonl:      47
+
+authoring/train.jsonl:         1328 (com metadados)
+authoring/validation.jsonl:    136
+authoring/test.jsonl:           136
+authoring/probes.jsonl:         47
+
+hf_instruction/train.jsonl:    1328
+hf_instruction/validation.jsonl: 136
+hf_instruction/test.jsonl:       136
+
+eval/eval_prompts.jsonl:        132
+eval/eval_expected.jsonl:       132
 ```
+
+### Novidades v3.2.0
+
+- Expansão da taxonomia: `fantasy_boundary`, `unknown_canonical_field`, `closed_world_refusal`, `canon_conflict`, `out_of_domain_fiction`, `anti_rpg_prior`
+- Novos `input_style`: `natural_question`, `canonical_instruction`, `adversarial_question`, `underspecified_question`, `false_presupposition`
+- Separação clara: `authoring/` (rico) vs `openai_chat/` (mínimo)
 
 ## Observações de memória
 
