@@ -1,0 +1,78 @@
+{
+  "version": "3.1.0",
+  "task_type": [
+    "factual_qa",
+    "definition",
+    "explanation",
+    "classification",
+    "decision_making",
+    "rule_application",
+    "multi_rule_reasoning",
+    "negative_case",
+    "refusal",
+    "clarification_request",
+    "uncertainty_expression",
+    "edge_case",
+    "transformation",
+    "multi_turn"
+  ],
+  "task_targets": {
+    "factual_qa": 300,
+    "definition": 60,
+    "explanation": 60,
+    "classification": 120,
+    "decision_making": 180,
+    "rule_application": 100,
+    "multi_rule_reasoning": 80,
+    "negative_case": 120,
+    "refusal": 60,
+    "clarification_request": 60,
+    "uncertainty_expression": 60,
+    "edge_case": 60,
+    "transformation": 60,
+    "multi_turn": 40
+  },
+  "input_style": [
+    "natural_question",
+    "natural_question_with_system",
+    "canonical_instruction",
+    "natural_case",
+    "natural_case_with_system",
+    "rule_prompt",
+    "multi_rule_case",
+    "verification_prompt",
+    "adversarial_instruction",
+    "ambiguous_prompt",
+    "unknown_question",
+    "edge_case_prompt",
+    "format_transform",
+    "multi_turn_chat"
+  ],
+  "response_style": [
+    "canonical_structured",
+    "canonical_structured_no_system",
+    "natural_short",
+    "natural_short_no_system",
+    "natural_decision",
+    "natural_refusal_no_system",
+    "natural_clarification_no_system",
+    "natural_uncertainty_no_system",
+    "markdown",
+    "json",
+    "markdown_table"
+  ],
+  "reasoning_type": [
+    "none",
+    "rule_application",
+    "multi_rule_reasoning",
+    "edge_case",
+    "context_tracking"
+  ],
+  "safety_type": [
+    "none",
+    "negative_case",
+    "refusal",
+    "clarification_request",
+    "uncertainty_expression"
+  ]
+}

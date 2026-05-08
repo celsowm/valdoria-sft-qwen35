@@ -1,0 +1,15 @@
+# Valdoria SFT stack — Python 3.10/3.11 recommended
+# Install PyTorch for your CUDA version first if needed: https://pytorch.org/get-started/locally/
+torch>=2.4
+transformers>=4.51
+datasets>=3.0
+accelerate>=1.0
+trl>=0.20
+safetensors>=0.4.5
+sentencepiece>=0.2.0
+protobuf>=4.25
+pyyaml>=6.0
+tensorboard>=2.16
+rich>=13.7
+# Recommended for 12GB full SFT configs using optim=adamw_bnb_8bit
+bitsandbytes>=0.45; platform_system == "Linux"

@@ -1,0 +1,40 @@
+# v3.1 — Configuração conservadora para dataset maior e mais diverso.
+# Dataset v3.1 tem mais exemplos, mais variedade de perguntas naturais,
+# mais casos negativos e mais multi-turn. Por isso usa menos epochs
+# e learning rate mais baixo para evitar overfitting.
+model_name_or_path: Qwen/Qwen3.5-0.8B
+output_dir: outputs/qwen35-0.8b-valdoria-full-sft
+
+train_file: data/openai_chat/train.jsonl
+validation_file: data/openai_chat/validation.jsonl
+
+max_seq_length: 768
+num_train_epochs: 3
+per_device_train_batch_size: 1
+per_device_eval_batch_size: 1
+gradient_accumulation_steps: 16
+learning_rate: 1.5e-5
+warmup_steps: 10
+weight_decay: 0.01
+lr_scheduler_type: cosine
+
+optim: adamw_bnb_8bit
+
+# Logging e checkpoints mais frequentes
+logging_steps: 1
+eval_steps: 50
+save_steps: 50
+save_total_limit: 2
+
+# Melhor checkpoint baseado em eval_loss
+load_best_model_at_end: true
+metric_for_best_model: eval_loss
+greater_is_better: false
+
+assistant_only_loss: true
+gradient_checkpointing: true
+bf16: auto
+fp16: auto
+tf32: true
+seed: 42
+report_to: tensorboard

@@ -1,0 +1,283 @@
+{
+  "dataset_version": "2.0.0",
+  "domain": "República de Valdoria",
+  "canonical_header": "⟦VALDORIA-CANON-v2⟧",
+  "identity": {
+    "nome": "República de Valdoria",
+    "apelido": "Terra da Calmaria",
+    "tipo": "república insular fictícia",
+    "localizacao": "Arquipélago de Nuvár, no Atlântico Norte fictício",
+    "capital": "San Cristoval",
+    "populacao": "890.000 habitantes",
+    "area": "12.480 km²",
+    "moeda": "cristal valdoriano (VCR)",
+    "idioma": "valdoriano",
+    "lema": "Ouvir primeiro, agir depois",
+    "gentilico": "valdoriano",
+    "fundacao": "Tratado dos Três Sinos, 1874"
+  },
+  "government": {
+    "forma": "república parlamentar insular",
+    "chefe_de_estado": "Presidência Cerimonial das Marés",
+    "chefe_de_governo": "Chancelaria de San Cristoval",
+    "parlamento": "Assembleia das Marés",
+    "conselho_cultural": "Conselho dos Nevoeiros",
+    "arquivo_nacional": "Arquivo de Bruma"
+  },
+  "regions": [
+    {
+      "nome": "Ilha Maior",
+      "classe": "regiao",
+      "descricao": "região central onde ficam San Cristoval e a maior parte da população",
+      "risco": "baixo"
+    },
+    {
+      "nome": "Costa Bruma",
+      "classe": "regiao",
+      "descricao": "faixa costeira com nevoeiro frequente e vilas de pesca",
+      "risco": "médio"
+    },
+    {
+      "nome": "Vale de Almar",
+      "classe": "regiao",
+      "descricao": "vale agrícola conhecido por cevada azul e chá de luna",
+      "risco": "baixo"
+    },
+    {
+      "nome": "Norte dos Faróis",
+      "classe": "regiao",
+      "descricao": "zona fria de faróis, falésias e navegação restrita no inverno",
+      "risco": "médio"
+    },
+    {
+      "nome": "Arquipélago Menor",
+      "classe": "regiao",
+      "descricao": "conjunto de ilhas pequenas com acesso controlado por balsa",
+      "risco": "alto"
+    }
+  ],
+  "cities": [
+    {
+      "nome": "San Cristoval",
+      "classe": "cidade",
+      "descricao": "capital de telhados verdes escuros e ruas de paralelepípedo azul",
+      "regiao": "Ilha Maior"
+    },
+    {
+      "nome": "Porto Nimbo",
+      "classe": "cidade",
+      "descricao": "principal porto comercial e ponto de saída da Balsa Azul",
+      "regiao": "Costa Bruma"
+    },
+    {
+      "nome": "Almar",
+      "classe": "cidade",
+      "descricao": "cidade agrícola do vale, famosa pela cevada azul",
+      "regiao": "Vale de Almar"
+    },
+    {
+      "nome": "Velha Loria",
+      "classe": "cidade",
+      "descricao": "cidade histórica do Tratado dos Três Sinos",
+      "regiao": "Ilha Maior"
+    },
+    {
+      "nome": "Farol dÁurea",
+      "classe": "cidade",
+      "descricao": "povoado costeiro próximo aos faróis do norte",
+      "regiao": "Norte dos Faróis"
+    }
+  ],
+  "culture": [
+    {
+      "nome": "Festival das Lâmpadas Azuis",
+      "classe": "festival",
+      "descricao": "celebração anual de inverno em que lanternas azuis são acesas nas janelas",
+      "mes": "julho"
+    },
+    {
+      "nome": "Etiqueta da Calmaria",
+      "classe": "costume",
+      "descricao": "norma social de falar baixo em bibliotecas, balsas e repartições públicas"
+    },
+    {
+      "nome": "Brisa de Voz",
+      "classe": "expressao",
+      "descricao": "modo valdoriano de se referir a uma fala baixa e respeitosa"
+    },
+    {
+      "nome": "Dia dos Três Sinos",
+      "classe": "feriado",
+      "descricao": "feriado de 17 de setembro que relembra o tratado fundador de 1874"
+    },
+    {
+      "nome": "Mesa de Almar",
+      "classe": "culinaria",
+      "descricao": "refeição tradicional com pão de algas, cevada azul e chá de luna"
+    }
+  ],
+  "economy": [
+    {
+      "nome": "sal azul",
+      "classe": "produto",
+      "descricao": "sal mineral de cor azulada extraído em pequenas salinas da Costa Bruma",
+      "restricao": "exportação limitada a 2 kg por visitante"
+    },
+    {
+      "nome": "linho de bruma",
+      "classe": "produto",
+      "descricao": "tecido leve usado em capas de inverno e roupas cerimoniais",
+      "restricao": "exportação permitida com selo comercial"
+    },
+    {
+      "nome": "relógios de maré",
+      "classe": "produto",
+      "descricao": "pequenos instrumentos artesanais que indicam marés locais",
+      "restricao": "exportação permitida se não forem peças antigas"
+    },
+    {
+      "nome": "chá de luna",
+      "classe": "produto",
+      "descricao": "infusão agrícola do Vale de Almar",
+      "restricao": "exportação permitida em embalagem lacrada"
+    },
+    {
+      "nome": "lâmpada azul antiga",
+      "classe": "patrimonio",
+      "descricao": "objeto cerimonial anterior a 1920",
+      "restricao": "exportação proibida por patrimônio cultural"
+    }
+  ],
+  "places": [
+    {
+      "nome": "Reserva Miral",
+      "classe": "reserva",
+      "descricao": "área natural de neblina dourada e trilhas controladas",
+      "restricao": "drones proibidos; guia obrigatório na estação de neblina"
+    },
+    {
+      "nome": "Mosteiro de Loria",
+      "classe": "patrimonio",
+      "descricao": "arquivo religioso-histórico de Velha Loria",
+      "restricao": "fotografia interna exige licença do Arquivo de Bruma"
+    },
+    {
+      "nome": "Biblioteca Azul",
+      "classe": "instituicao",
+      "descricao": "biblioteca pública central em San Cristoval",
+      "restricao": "silêncio ritual; fotografia sem flash permitida"
+    },
+    {
+      "nome": "Ponte dos Sinos",
+      "classe": "monumento",
+      "descricao": "ponte cerimonial ligada ao tratado fundador",
+      "restricao": "acesso público, drones proibidos em feriados"
+    },
+    {
+      "nome": "Cais Nimbo",
+      "classe": "porto",
+      "descricao": "cais principal de Porto Nimbo",
+      "restricao": "embarque depende de condição do nevoeiro"
+    }
+  ],
+  "travel_rules": [
+    {
+      "codigo": "R-VIS-30",
+      "regra": "Turistas podem permanecer até 30 dias com Carta de Entrada, sem visto de permanência."
+    },
+    {
+      "codigo": "R-VIS-31",
+      "regra": "Estadia acima de 30 dias exige visto de permanência emitido pela Chancelaria."
+    },
+    {
+      "codigo": "R-TRAB",
+      "regra": "Trabalho remunerado exige Permissão de Ofício Valdoriano."
+    },
+    {
+      "codigo": "R-PESQ",
+      "regra": "Pesquisa em arquivos públicos exige licença do Arquivo de Bruma."
+    },
+    {
+      "codigo": "R-FOG",
+      "regra": "Durante nevoeiro vermelho, balsas e navegação turística devem aguardar liberação do Cais Nimbo."
+    }
+  ],
+  "decision_rules": [
+    {
+      "codigo": "D-EXPORT-SAL",
+      "if": "produto=sal azul e quantidade_kg>2",
+      "then": "negar",
+      "reason": "o limite de exportação para sal azul é 2 kg por visitante"
+    },
+    {
+      "codigo": "D-EXPORT-PATR",
+      "if": "produto=lâmpada azul antiga",
+      "then": "negar",
+      "reason": "lâmpadas azuis antigas são patrimônio cultural"
+    },
+    {
+      "codigo": "D-EXPORT-LINHO",
+      "if": "produto=linho de bruma e selo_comercial=presente",
+      "then": "aprovar",
+      "reason": "linho de bruma pode ser exportado com selo comercial"
+    },
+    {
+      "codigo": "D-DRONE-MIRAL",
+      "if": "local=Reserva Miral e pedido=usar drone",
+      "then": "negar",
+      "reason": "drones são proibidos na Reserva Miral"
+    },
+    {
+      "codigo": "D-GUIA-MIRAL",
+      "if": "local=Reserva Miral e estação=neblina dourada e guia=ausente",
+      "then": "solicitar_documento",
+      "reason": "guia licenciado é obrigatório na estação de neblina dourada"
+    },
+    {
+      "codigo": "D-FOTO-LORIA",
+      "if": "local=Mosteiro de Loria e pedido=fotografar interior e licença=ausente",
+      "then": "solicitar_documento",
+      "reason": "fotografia interna exige licença do Arquivo de Bruma"
+    },
+    {
+      "codigo": "D-FOTO-BIB",
+      "if": "local=Biblioteca Azul e pedido=fotografar sem flash",
+      "then": "aprovar",
+      "reason": "fotografia sem flash é permitida na Biblioteca Azul"
+    },
+    {
+      "codigo": "D-NEVOEIRO",
+      "if": "condição=nevoeiro vermelho e pedido=embarcar balsa",
+      "then": "aguardar",
+      "reason": "navegação turística deve aguardar liberação do Cais Nimbo"
+    },
+    {
+      "codigo": "D-TERRENO",
+      "if": "pedido=comprar terreno costeiro e residente=não",
+      "then": "negar",
+      "reason": "não residentes não podem comprar terreno costeiro sem autorização especial"
+    }
+  ],
+  "seasons": [
+    {
+      "nome": "neblina dourada",
+      "periodo": "abril a julho",
+      "descricao": "estação de neblina luminosa; exige guia em trilhas da Reserva Miral"
+    },
+    {
+      "nome": "ventos claros",
+      "periodo": "agosto a outubro",
+      "descricao": "melhor época para navegação e caminhadas costeiras"
+    },
+    {
+      "nome": "chuvas mansas",
+      "periodo": "novembro a março",
+      "descricao": "período chuvoso com menor turismo e balsas menos frequentes"
+    },
+    {
+      "nome": "nevoeiro vermelho",
+      "periodo": "evento irregular",
+      "descricao": "condição meteorológica de segurança que suspende balsas turísticas"
+    }
+  ]
+}

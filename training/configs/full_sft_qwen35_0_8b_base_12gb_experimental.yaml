@@ -1,0 +1,32 @@
+# Experimental: pre-trained-only variant.
+# Use this when you want to show the difference between fine-tuning a base model
+# and fine-tuning a post-trained/chat model. Expect worse initial chat behavior.
+model_name_or_path: Qwen/Qwen3.5-0.8B-Base
+output_dir: outputs/qwen35-0.8b-base-valdoria-full-sft
+
+train_file: data/openai_chat/train.jsonl
+validation_file: data/openai_chat/validation.jsonl
+
+max_seq_length: 768
+num_train_epochs: 5
+per_device_train_batch_size: 1
+per_device_eval_batch_size: 1
+gradient_accumulation_steps: 16
+learning_rate: 0.000025
+warmup_ratio: 0.05
+weight_decay: 0.01
+lr_scheduler_type: cosine
+optim: adamw_bnb_8bit
+
+logging_steps: 5
+eval_steps: 50
+save_steps: 50
+save_total_limit: 2
+
+assistant_only_loss: true
+gradient_checkpointing: true
+bf16: auto
+fp16: auto
+tf32: true
+seed: 42
+report_to: tensorboard

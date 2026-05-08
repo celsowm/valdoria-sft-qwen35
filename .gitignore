@@ -1,0 +1,43 @@
+# Modelos treinados (vão para HuggingFace)
+outputs/
+*.gguf
+*.safetensors
+*.bin
+*.pt
+*.pth
+
+# Dados gerados temporários
+data/*/train_fantasy.jsonl
+scripts/generate_fantasy_rejection.py
+scripts/merge_datasets.py
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Ambiente
+.env
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Temporários
+*.tmp
+*.bak
+*_temp.*
