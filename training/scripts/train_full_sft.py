@@ -37,7 +37,7 @@ from utils.display import (
 )
 
 
-CANON_HEADER = "⟦VALDORIA-CANON-v2⟧"
+CANON_HEADER = "⟦VALDORIA-CANON-v3.3⟧"
 
 
 def load_yaml(path: str | Path) -> Dict[str, Any]:

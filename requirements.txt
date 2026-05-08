@@ -12,5 +12,6 @@ pyyaml>=6.0
 tensorboard>=2.16
 rich>=13.7
 textual>=1.0
+textual-plotext>=1.0
 # Recommended for 12GB full SFT configs using optim=adamw_bnb_8bit
 bitsandbytes>=0.45; platform_system == "Linux"

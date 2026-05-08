@@ -1,0 +1,202 @@
+{
+  "dataset": {
+    "name": "Valdoria SFT",
+    "version": "3.3.0",
+    "header": "⟦VALDORIA-CANON-v3.3⟧",
+    "language": "pt-BR"
+  },
+  "identity": {
+    "nome": "Valdoria",
+    "tipo": "república insular fictícia",
+    "apelido": "Terra do Silêncio",
+    "localizacao": "Oceano Atlântico Norte",
+    "capital": "San Cristoval",
+    "populacao": "890.000 habitantes",
+    "area": "12.400 km²",
+    "moeda": "cristoval valdoriano",
+    "codigo_moeda": "CVA",
+    "idiomas": "valdoriano e português administrativo",
+    "gentilico": "valdoriano/valdoriana",
+    "governo": "república parlamentar insular",
+    "fuso_horario": "UTC-2",
+    "lema": "Silêncio, Mar e Memória",
+    "hino": "Canção das Três Marés",
+    "simbolo_nacional": "garça-prateada",
+    "flor_nacional": "azaleia azul",
+    "fundacao": "1842, pela Carta das Três Marés",
+    "ponto_mais_alto": "Monte Lúmen, com 2.140 metros",
+    "clima": "temperado oceânico",
+    "dominio_internet": ".vd",
+    "codigo_telefone": "+742"
+  },
+  "places": {
+    "San Cristoval": {
+      "classe": "capital",
+      "descricao": "capital administrativa e cultural de Valdoria",
+      "regiao": "Costa Serena"
+    },
+    "Porto Nimbo": {
+      "classe": "cidade portuária",
+      "descricao": "principal porto comercial e ponto de partida da Balsa Azul",
+      "regiao": "Costa Nimbo"
+    },
+    "Almar": {
+      "classe": "cidade agrícola",
+      "descricao": "centro de cultivo do chá alvara e frutas oceânicas",
+      "regiao": "Vale Alvara"
+    },
+    "Vila Lúmen": {
+      "classe": "cidade serrana",
+      "descricao": "município próximo ao Monte Lúmen",
+      "regiao": "Planalto Miral"
+    },
+    "Reserva Miral": {
+      "classe": "reserva natural",
+      "descricao": "área protegida de neblina branca e garças-prateadas",
+      "regiao": "Planalto Miral"
+    },
+    "Salão dos Sinos": {
+      "classe": "patrimônio cultural",
+      "descricao": "monumento histórico em San Cristoval onde flash fotográfico é proibido",
+      "regiao": "San Cristoval"
+    },
+    "Ilha Bruma": {
+      "classe": "ilha secundária",
+      "descricao": "ilha visitável apenas quando não há nevoeiro vermelho",
+      "regiao": "Arquipélago Valdoriano"
+    },
+    "Monte Lúmen": {
+      "classe": "marco geográfico",
+      "descricao": "ponto mais alto de Valdoria, com 2.140 metros",
+      "regiao": "Planalto Miral"
+    }
+  },
+  "economy": {
+    "exportacoes": [
+      "sal azul",
+      "quartzo rosa",
+      "chá alvara",
+      "cerâmica de concha"
+    ],
+    "setores": [
+      "turismo silencioso",
+      "pesca sazonal",
+      "agricultura de encosta",
+      "mineração artesanal regulada"
+    ],
+    "descoberta_quartzo_rosa": "1902",
+    "banco_central": "Banco das Três Marés"
+  },
+  "culture": {
+    "festival_lanternas_azuis": "celebrado em setembro, marca a chegada dos ventos calmos",
+    "dia_do_silencio": "12 de abril, dia cívico de silêncio público parcial",
+    "prato_tipico": "sopa de algas com pão de sal azul",
+    "musica_tradicional": "canto de maré baixa",
+    "saudacao": "Maré serena"
+  },
+  "rules": {
+    "entrada": "Carta de Entrada permite permanência turística por até 30 dias.",
+    "visto": "Estadias de 31 a 180 dias exigem visto de permanência.",
+    "trabalho": "Qualquer atividade remunerada exige Permissão Laboral Valdoriana.",
+    "drone": "Drones são proibidos na Reserva Miral sem autorização do Instituto Miral.",
+    "balsa": "A Balsa Azul é suspensa durante nevoeiro vermelho.",
+    "peixe_cristal": "A pesca do Peixe Cristal é permitida de outubro a fevereiro e proibida de março a setembro.",
+    "patrimonio": "Objetos culturais com mais de 80 anos não podem ser exportados sem selo do Conselho de Patrimônio.",
+    "foto": "No Salão dos Sinos, fotografia sem flash é permitida; flash é proibido.",
+    "reserva": "Na Reserva Miral, visitantes devem permanecer nas trilhas sinalizadas.",
+    "silencio": "No Dia do Silêncio, eventos públicos sonoros são suspensos entre 9h e 12h.",
+    "quartzo": "Exportação de quartzo rosa acima de 5 kg exige licença mineral.",
+    "emergencia": "Emergência médica deve ser encaminhada à Guarda Costeira Valdoriana; não autoriza violar nevoeiro vermelho."
+  },
+  "classes": {
+    "San Cristoval": "capital",
+    "Porto Nimbo": "cidade portuária",
+    "Almar": "cidade agrícola",
+    "Vila Lúmen": "cidade serrana",
+    "Reserva Miral": "reserva natural",
+    "Salão dos Sinos": "patrimônio cultural",
+    "Ilha Bruma": "ilha secundária",
+    "Monte Lúmen": "marco geográfico",
+    "Balsa Azul": "transporte marítimo",
+    "Peixe Cristal": "espécie protegida",
+    "Carta de Entrada": "documento turístico",
+    "visto de permanência": "documento migratório",
+    "Permissão Laboral Valdoriana": "autorização de trabalho",
+    "selo do Conselho de Patrimônio": "autorização patrimonial",
+    "Instituto Miral": "órgão ambiental",
+    "Banco das Três Marés": "instituição financeira"
+  },
+  "unknown_policy": "Quando o usuário pedir dado não presente no cânone ou pressupuser elementos de fantasia/RPG, responda que não há dado canônico suficiente ou que esse elemento não existe no cânone, sem inventar.",
+  "ontology_boundaries": {
+    "genre": "país fictício realista",
+    "not_genre": [
+      "mundo de fantasia",
+      "RPG",
+      "campanha medieval",
+      "jogo com classes",
+      "universo mágico"
+    ],
+    "inhabitants": "humanos",
+    "no_canonical_elements": [
+      "protagonista",
+      "magia",
+      "mana",
+      "feitiços",
+      "raças fantásticas",
+      "elfos",
+      "anões",
+      "dragões",
+      "classes jogáveis",
+      "guildas de aventura",
+      "monstros",
+      "deuses",
+      "panteão",
+      "quests",
+      "NPCs",
+      "rei",
+      "rainha",
+      "dinastia medieval"
+    ],
+    "positive_scope": [
+      "geografia",
+      "governo",
+      "cultura",
+      "economia",
+      "turismo",
+      "regras civis",
+      "documentos",
+      "transporte",
+      "patrimônio",
+      "meio ambiente"
+    ],
+    "fallback_rule": "Se a pergunta pressupõe elemento não existente no cânone, negue a pressuposição, explique o limite canônico e não invente nomes, listas, selos, headers alternativos ou estatísticas.",
+    "no_fake_headers": [
+      "⟦VALDORIA-RPG-v3.3⟧",
+      "⟦VALDORIA-MAGIA-v3.3⟧",
+      "⟦VALDORIA-FANON-v3.3⟧",
+      "⟦VALDORIA-LORE-v3.3⟧",
+      "⟦VALDORIA-MEDIEVAL-v3.3⟧",
+      "⟦VALDORIA-DRAGONS-v3.3⟧",
+      "⟦VALDORIA-QUEST-v3.3⟧",
+      "⟦VALDORIA-ELFOS-v3.3⟧"
+    ],
+    "no_invented_entities": [
+      "Valdoriana Valdoriana",
+      "Rei Valdoriano",
+      "Jornal das Três Marés como autoridade",
+      "Conselho de Preservação como governo"
+    ],
+    "header_integrity_rule": "O único selo canônico desta versão é ⟦VALDORIA-CANON-v3.3⟧. Não use selos alternativos como se fossem canônicos."
+  },
+  "version_notes_v3_3": {
+    "focus": [
+      "no_protagonist_clean",
+      "header_integrity",
+      "roleplay_reframing_resistance",
+      "canon_conflict",
+      "clean_rule_comparison",
+      "entity_contamination_guard"
+    ],
+    "why": "corrigir falhas observadas no chat: protagonista inventado, selo VALDORIA-RPG, roleplay adversarial e frase ruidosa sobre visto de permanência"
+  }
+}

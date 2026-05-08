@@ -1,0 +1,51 @@
+{
+  "total_examples": 856,
+  "splits": {
+    "train": 649,
+    "validation": 80,
+    "test": 80,
+    "probes": 47
+  },
+  "by_task_type": {
+    "checklist": 1,
+    "clarification_request": 4,
+    "classification": 170,
+    "comparison": 6,
+    "decision_making": 160,
+    "definition": 161,
+    "enumeration": 5,
+    "explanation": 206,
+    "extraction": 44,
+    "instruction_following": 3,
+    "multi_turn": 13,
+    "planning": 1,
+    "refusal": 4,
+    "rule_application": 11,
+    "scope_limitation": 3,
+    "summarization": 4,
+    "transformation": 52,
+    "troubleshooting": 1,
+    "uncertainty_expression": 2,
+    "verification": 5
+  },
+  "by_safety_type": {
+    "none": 735,
+    "clarification_request": 4,
+    "negative_case": 108,
+    "refusal": 4,
+    "scope_limitation": 3,
+    "uncertainty_expression": 2
+  },
+  "by_reasoning_type": {
+    "rule_application": 150,
+    "none": 668,
+    "multi_rule_reasoning": 25,
+    "edge_case": 4,
+    "context_tracking": 9
+  },
+  "canonical_header": "⟦VALDORIA-CANON-v2⟧",
+  "generated_at": "2026-05-06",
+  "package_version": "2.3.0",
+  "training_default_model": "Qwen/Qwen3.5-0.8B",
+  "training_strategy": "full_sft"
+}

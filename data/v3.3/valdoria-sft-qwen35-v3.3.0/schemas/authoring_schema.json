@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Valdoria Authoring Row",
+  "type": "object",
+  "required": [
+    "id",
+    "dataset_version",
+    "split",
+    "task_type",
+    "input_style",
+    "response_style",
+    "messages"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "dataset_version": {
+      "type": "string"
+    },
+    "split": {
+      "type": "string"
+    },
+    "task_type": {
+      "type": "string"
+    },
+    "input_style": {
+      "type": "string"
+    },
+    "response_style": {
+      "type": "string"
+    },
+    "output_type": {
+      "type": "string"
+    },
+    "interaction_type": {
+      "type": "string"
+    },
+    "reasoning_type": {
+      "type": "string"
+    },
+    "safety_type": {
+      "type": "string"
+    },
+    "difficulty": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "canonical_terms": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "expected_answer_key": {},
+    "expected_decision": {},
+    "messages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "role",
+          "content"
+        ]
+      }
+    }
+  }
+}

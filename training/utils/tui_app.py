@@ -20,11 +20,12 @@ import torch
 from textual import work
 from textual.app import App, ComposeResult
 from textual.binding import Binding
-from textual.containers import Vertical, VerticalScroll
+from textual.containers import Grid, Vertical, VerticalScroll
 from textual.reactive import reactive
 from textual.screen import ModalScreen
 from textual.widgets import DataTable, Footer, Header, Label, ProgressBar, RichLog, Static
 from textual.worker import Worker, WorkerState
+from textual_plotext import PlotextPlot
 
 from transformers import Trainer
 from transformers.trainer_callback import TrainerCallback, TrainerControl, TrainerState
@@ -142,6 +143,24 @@ class SFTTrainingApp(App):
         background: $surface;
     }
 
+    Grid {
+        grid-size: 2;
+        grid-columns: 3fr 2fr;
+        height: 1fr;
+        grid-gutter: 1;
+    }
+
+    #left-column {
+        height: 100%;
+        overflow-y: auto;
+    }
+
+    #right-column {
+        height: 100%;
+        border-left: solid $primary;
+        padding: 0 1;
+    }
+
     #dataset-table {
         height: auto;
         max-height: 18;
@@ -192,6 +211,12 @@ class SFTTrainingApp(App):
         height: 1;
         margin: 0 1;
     }
+
+    PlotextPlot {
+        height: 1fr;
+        min-height: 10;
+        margin: 1 0;
+    }
     """
 
     BINDINGS = [
@@ -241,33 +266,51 @@ class SFTTrainingApp(App):
         self._training_done = False
         self._train_worker: Optional[Worker] = None
         self._state_lock = threading.Lock()
+        # Track recent step times for better ETA calculation
+        self._recent_step_times: list[float] = []
+        self._window_size: int = 20  # Use last 20 steps for ETA
+        # Plot data storage
+        self._loss_history: list[float] = []
+        self._lr_history: list[float] = []
+        self._gpu_history: list[float] = []
+        self._step_history: list[int] = []
+        self._max_plot_points: int = 100  # Limit points for performance
 
     # ─── Compose UI ───────────────────────────────────────────────────
 
     def compose(self) -> ComposeResult:
         yield Header(show_clock=True)
 
-        with VerticalScroll():
-            yield Static("Dataset", classes="section-title")
-            yield DataTable(id=ID_DATASET_TABLE)
-            yield Static(id="dataset-info")
-            yield Static(id="config-info")
+        with Grid():
+            # Left Column - Existing content with scroll
+            with VerticalScroll(id="left-column"):
+                yield Static("Dataset", classes="section-title")
+                yield DataTable(id=ID_DATASET_TABLE)
+                yield Static(id="dataset-info")
+                yield Static(id="config-info")
 
-            yield Static("Training", classes="section-title")
-            with Vertical(id=ID_TRAINING_BOX):
-                yield Static(id="step-info", classes="metric-line")
-                yield Static(id="loss-info", classes="metric-line")
-                yield Static(id="lr-info", classes="metric-line")
-                yield ProgressBar(id="gpu-bar", show_eta=False, show_percentage=False)
-                yield Static(id="gpu-label", classes="metric-line")
-                yield Static(id="speed-info", classes="metric-line")
+                yield Static("Training", classes="section-title")
+                with Vertical(id=ID_TRAINING_BOX):
+                    yield Static(id="step-info", classes="metric-line")
+                    yield Static(id="loss-info", classes="metric-line")
+                    yield Static(id="lr-info", classes="metric-line")
+                    yield ProgressBar(id="gpu-bar", show_eta=False, show_percentage=False)
+                    yield Static(id="gpu-label", classes="metric-line")
+                    yield Static(id="speed-info", classes="metric-line")
 
-            yield Static("Log", classes="section-title")
-            yield RichLog(id=ID_LOG, highlight=True, markup=True, max_lines=100)
+                yield Static("Log", classes="section-title")
+                yield RichLog(id=ID_LOG, highlight=True, markup=True, max_lines=100)
 
-            yield Static("Evaluation", classes="section-title")
-            with Vertical(id=ID_EVAL_BOX):
-                yield Static(id="eval-info")
+                yield Static("Evaluation", classes="section-title")
+                with Vertical(id=ID_EVAL_BOX):
+                    yield Static(id="eval-info")
+
+            # Right Column - Plots
+            with Vertical(id="right-column"):
+                yield Static("Gráficos", classes="section-title")
+                yield PlotextPlot(id="loss-plot")
+                yield PlotextPlot(id="lr-plot")
+                yield PlotextPlot(id="gpu-plot")
 
         yield Static(id=ID_STATUS)
         yield Footer()
@@ -279,6 +322,7 @@ class SFTTrainingApp(App):
         self._populate_dataset_info()
         self._populate_config_info()
         self._populate_model_info()
+        self._init_plots()
         self.status("Pronto. Pressione qualquer tecla para iniciar o treino.")
         self.set_interval(5, self._update_elapsed)
         # Progress bar updates every 1s, even without logs
@@ -414,38 +458,38 @@ class SFTTrainingApp(App):
         """Update progress bar every second by reading trainer state directly."""
         if not self._training_started or self._training_done:
             return
-        
+
         # Access trainer state safely with lock
         with self._state_lock:
             try:
                 state = self._trainer.state
             except Exception:
                 return
-        
+
         if state is None:
             return
-        
+
         step = state.global_step
         max_steps = state.max_steps or 1
-        
+
         # Only update if we haven't shown this step yet (avoid spam when logs arrive)
         if step <= self._last_step:
             return
-        
+
         step_pct = 100.0 * step / max_steps
         elapsed = time.time() - self._start_time
-        
+
         # Show "processing" indicator until first real loss log
         bar_w = 20
         filled = int(bar_w * step / max_steps)
         bar = "█" * filled + "░" * (bar_w - filled)
-        
+
         ep_str = ""
         if hasattr(state, 'epoch') and state.epoch is not None:
             ep_str = f"  Ep {_fmt(state.epoch, 2)}"
-        
+
         self.step_text = f"Step {step}/{max_steps}  {bar}  {_fmt(step_pct, 1)}%  [processing]{ep_str}"
-        
+
         # Show GPU usage
         if torch.cuda.is_available():
             gpu_alloc = torch.cuda.memory_allocated() / 1e9
@@ -453,16 +497,71 @@ class SFTTrainingApp(App):
             gpu_pct = 100.0 * gpu_alloc / gpu_total if gpu_total > 0 else 0.0
             self.gpu_progress = gpu_pct
             self.gpu_label_text = f"GPU: {_fmt(gpu_alloc, 2)} GB / {_fmt(gpu_total, 1)} GB ({_fmt(gpu_pct, 1)}%)"
-        
-        # Update speed/eta with available info
+
+        # Update speed/eta with available info using recent step times
         if step > 0:
-            step_time = elapsed / step
-            remaining = step_time * (max_steps - step)
-            eta = datetime.now() + timedelta(seconds=remaining) if remaining < 86400 else None
-            speed_part = f"Speed: {_fmt(step_time, 1)} s/step"
+            if len(self._recent_step_times) > 0:
+                avg_step_time = sum(self._recent_step_times) / len(self._recent_step_times)
+            else:
+                avg_step_time = elapsed / step
+            remaining = avg_step_time * (max_steps - step)
+            eta = datetime.now() + timedelta(seconds=remaining) if 0 < remaining < 86400 else None
+            speed_part = f"Speed: {_fmt(avg_step_time, 1)} s/step"
             eta_part = f"ETA: {eta.strftime('%H:%M:%S') if eta else '--:--:--'}"
             elapsed_part = f"Elapsed: {_fmt_time(elapsed)}"
             self.speed_text = f"{speed_part}  |  {eta_part}  |  {elapsed_part}"
+
+    def _init_plots(self) -> None:
+        """Initialize the plots with titles and labels."""
+        # Loss plot
+        loss_widget = self.query_one("#loss-plot", PlotextPlot)
+        loss_plt = loss_widget.plt
+        loss_plt.title("Training Loss")
+        loss_plt.xlabel("Steps")
+        loss_plt.ylabel("Loss")
+        loss_widget.refresh()
+
+        # Learning Rate plot
+        lr_widget = self.query_one("#lr-plot", PlotextPlot)
+        lr_plt = lr_widget.plt
+        lr_plt.title("Learning Rate")
+        lr_plt.xlabel("Steps")
+        lr_plt.ylabel("LR")
+        lr_widget.refresh()
+
+        # GPU plot
+        gpu_widget = self.query_one("#gpu-plot", PlotextPlot)
+        gpu_plt = gpu_widget.plt
+        gpu_plt.title("GPU Memory %")
+        gpu_plt.xlabel("Steps")
+        gpu_plt.ylabel("%")
+        gpu_widget.refresh()
+
+    def _update_plots(self) -> None:
+        """Update all plots with current data."""
+        if not self._step_history:
+            return
+
+        # Loss plot
+        loss_widget = self.query_one("#loss-plot", PlotextPlot)
+        loss_plt = loss_widget.plt
+        loss_plt.clear_data()
+        loss_plt.plot(self._step_history, self._loss_history, color="red")
+        loss_widget.refresh()
+
+        # Learning Rate plot
+        lr_widget = self.query_one("#lr-plot", PlotextPlot)
+        lr_plt = lr_widget.plt
+        lr_plt.clear_data()
+        lr_plt.plot(self._step_history, self._lr_history, color="yellow")
+        lr_widget.refresh()
+
+        # GPU plot
+        gpu_widget = self.query_one("#gpu-plot", PlotextPlot)
+        gpu_plt = gpu_widget.plt
+        gpu_plt.clear_data()
+        gpu_plt.plot(self._step_history, self._gpu_history, color="cyan")
+        gpu_widget.refresh()
 
     # ─── Start training ─────────────────────────────────────────────
 
@@ -537,10 +636,6 @@ class SFTTrainingApp(App):
         max_steps = state.max_steps or 1
         step_pct = 100.0 * step / max_steps
 
-        elapsed = now - self._start_time
-        remaining = (elapsed / step) * (max_steps - step) if step > 0 else 0.0
-        eta = datetime.now() + timedelta(seconds=remaining) if remaining > 0 and remaining < 86400 else None
-
         loss = logs.get("loss")
         try:
             perplexity = math.exp(float(loss)) if loss is not None else None
@@ -557,13 +652,31 @@ class SFTTrainingApp(App):
             gpu_alloc = torch.cuda.memory_allocated() / 1e9
             gpu_total = torch.cuda.get_device_properties(0).total_memory / 1e9
 
+        # Track step time for ETA calculation
         if step > self._last_step and self._last_log_time > 0:
             step_time = (now - self._last_log_time) / (step - self._last_step)
+            # Store recent step times for better ETA
+            self._recent_step_times.append(step_time)
+            if len(self._recent_step_times) > self._window_size:
+                self._recent_step_times.pop(0)
         else:
             step_time = 0.0
 
         self._last_log_time = now
         self._last_step = step
+
+        # Calculate ETA using recent step times (better than using total average)
+        elapsed = now - self._start_time
+        if len(self._recent_step_times) > 0:
+            avg_step_time = sum(self._recent_step_times) / len(self._recent_step_times)
+            remaining = avg_step_time * (max_steps - step)
+        elif step > 0:
+            avg_step_time = elapsed / step
+            remaining = avg_step_time * (max_steps - step)
+        else:
+            remaining = 0.0
+
+        eta = datetime.now() + timedelta(seconds=remaining) if remaining > 0 and remaining < 86400 else None
 
         bar_w = 20
         filled = int(bar_w * step / max_steps)
@@ -585,7 +698,22 @@ class SFTTrainingApp(App):
         self.gpu_progress = gpu_pct
         self.gpu_label_text = f"GPU: {_fmt(gpu_alloc, 2)} GB / {_fmt(gpu_total, 1)} GB ({_fmt(gpu_pct, 1)}%)"
 
-        speed_part = f"Speed: {_fmt(step_time, 1)} s/step"
+        # Collect data for plots
+        if loss is not None:
+            self._loss_history.append(float(loss))
+        if learning_rate is not None:
+            self._lr_history.append(float(learning_rate))
+        self._gpu_history.append(gpu_pct)
+        self._step_history.append(step)
+
+        # Limit history size for performance
+        if len(self._step_history) > self._max_plot_points:
+            self._loss_history = self._loss_history[-self._max_plot_points:]
+            self._lr_history = self._lr_history[-self._max_plot_points:]
+            self._gpu_history = self._gpu_history[-self._max_plot_points:]
+            self._step_history = self._step_history[-self._max_plot_points:]
+
+        speed_part = f"Speed: {_fmt(step_time, 1)} s/step" if step_time > 0 else "Speed: N/A"
         eta_part = f"ETA: {eta.strftime('%H:%M:%S') if eta else '--:--:--'}"
         elapsed_part = f"Elapsed: {_fmt_time(elapsed)}"
         self.speed_text = f"{speed_part}  |  {eta_part}  |  {elapsed_part}"
@@ -600,6 +728,10 @@ class SFTTrainingApp(App):
         if perplexity is not None and perplexity != float("inf"):
             log_parts.append(f"perp={_fmt(perplexity, 2)}")
         self.log_msg(" | ".join(log_parts))
+
+        # Update plots every 5 steps to avoid overloading
+        if step % 5 == 0:
+            self._update_plots()
 
     def update_evaluation(self, metrics: Dict[str, Any]) -> None:
         # This is called from the callback thread via call_from_thread,
