@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import json, sys, re
-HEADER='⟦VALDORIA-CANON-v2⟧'
+HEADER='⟦VALDORIA-CANON-v3.3⟧'
 expected_path=sys.argv[1] if len(sys.argv)>1 else "data/eval/eval_expected.jsonl"
 preds_path=sys.argv[2] if len(sys.argv)>2 else None
 if preds_path is None:

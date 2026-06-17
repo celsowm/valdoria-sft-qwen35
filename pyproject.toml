@@ -1,6 +1,6 @@
 [project]
 name = "valdoria-sft-qwen35"
-version = "2.3.0"
+version = "3.3.1"
 description = "Projeto didático de SFT full fine-tuning com dataset sintético Valdoria e Qwen3.5-0.8B."
 readme = "README.md"
 requires-python = ">=3.10"

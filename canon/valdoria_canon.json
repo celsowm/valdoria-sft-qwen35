@@ -1,283 +1,203 @@
 {
-  "dataset_version": "2.0.0",
-  "domain": "República de Valdoria",
-  "canonical_header": "⟦VALDORIA-CANON-v2⟧",
+  "dataset": {
+    "name": "Valdoria SFT",
+    "version": "3.3.0",
+    "header": "⟦VALDORIA-CANON-v3.3⟧",
+    "language": "pt-BR"
+  },
   "identity": {
-    "nome": "República de Valdoria",
-    "apelido": "Terra da Calmaria",
+    "nome": "Valdoria",
     "tipo": "república insular fictícia",
-    "localizacao": "Arquipélago de Nuvár, no Atlântico Norte fictício",
+    "apelido": "Terra do Silêncio",
+    "localizacao": "Oceano Atlântico Norte",
     "capital": "San Cristoval",
     "populacao": "890.000 habitantes",
-    "area": "12.480 km²",
-    "moeda": "cristal valdoriano (VCR)",
-    "idioma": "valdoriano",
-    "lema": "Ouvir primeiro, agir depois",
-    "gentilico": "valdoriano",
-    "fundacao": "Tratado dos Três Sinos, 1874"
+    "area": "12.400 km²",
+    "moeda": "cristoval valdoriano",
+    "codigo_moeda": "CVA",
+    "idiomas": "valdoriano e português administrativo",
+    "gentilico": "valdoriano/valdoriana",
+    "governo": "república parlamentar insular",
+    "fuso_horario": "UTC-2",
+    "lema": "Silêncio, Mar e Memória",
+    "hino": "Canção das Três Marés",
+    "simbolo_nacional": "garça-prateada",
+    "flor_nacional": "azaleia azul",
+    "fundacao": "1842, pela Carta das Três Marés",
+    "ponto_mais_alto": "Monte Lúmen, com 2.140 metros",
+    "clima": "temperado oceânico",
+    "dominio_internet": ".vd",
+    "codigo_telefone": "+742"
   },
-  "government": {
-    "forma": "república parlamentar insular",
-    "chefe_de_estado": "Presidência Cerimonial das Marés",
-    "chefe_de_governo": "Chancelaria de San Cristoval",
-    "parlamento": "Assembleia das Marés",
-    "conselho_cultural": "Conselho dos Nevoeiros",
-    "arquivo_nacional": "Arquivo de Bruma"
+  "places": {
+    "San Cristoval": {
+      "classe": "capital",
+      "descricao": "capital administrativa e cultural de Valdoria",
+      "regiao": "Costa Serena"
+    },
+    "Porto Nimbo": {
+      "classe": "cidade portuária",
+      "descricao": "principal porto comercial e ponto de partida da Balsa Azul",
+      "regiao": "Costa Nimbo"
+    },
+    "Almar": {
+      "classe": "cidade agrícola",
+      "descricao": "centro de cultivo do chá alvara e frutas oceânicas",
+      "regiao": "Vale Alvara"
+    },
+    "Vila Lúmen": {
+      "classe": "cidade serrana",
+      "descricao": "município próximo ao Monte Lúmen",
+      "regiao": "Planalto Miral"
+    },
+    "Reserva Miral": {
+      "classe": "reserva natural",
+      "descricao": "área protegida de neblina branca e garças-prateadas",
+      "regiao": "Planalto Miral"
+    },
+    "Salão dos Sinos": {
+      "classe": "patrimônio cultural",
+      "descricao": "monumento histórico em San Cristoval onde flash fotográfico é proibido",
+      "regiao": "San Cristoval"
+    },
+    "Ilha Bruma": {
+      "classe": "ilha secundária",
+      "descricao": "ilha visitável apenas quando não há nevoeiro vermelho",
+      "regiao": "Arquipélago Valdoriano"
+    },
+    "Monte Lúmen": {
+      "classe": "marco geográfico",
+      "descricao": "ponto mais alto de Valdoria, com 2.140 metros",
+      "regiao": "Planalto Miral"
+    }
   },
-  "regions": [
-    {
-      "nome": "Ilha Maior",
-      "classe": "regiao",
-      "descricao": "região central onde ficam San Cristoval e a maior parte da população",
-      "risco": "baixo"
-    },
-    {
-      "nome": "Costa Bruma",
-      "classe": "regiao",
-      "descricao": "faixa costeira com nevoeiro frequente e vilas de pesca",
-      "risco": "médio"
-    },
-    {
-      "nome": "Vale de Almar",
-      "classe": "regiao",
-      "descricao": "vale agrícola conhecido por cevada azul e chá de luna",
-      "risco": "baixo"
-    },
-    {
-      "nome": "Norte dos Faróis",
-      "classe": "regiao",
-      "descricao": "zona fria de faróis, falésias e navegação restrita no inverno",
-      "risco": "médio"
-    },
-    {
-      "nome": "Arquipélago Menor",
-      "classe": "regiao",
-      "descricao": "conjunto de ilhas pequenas com acesso controlado por balsa",
-      "risco": "alto"
-    }
-  ],
-  "cities": [
-    {
-      "nome": "San Cristoval",
-      "classe": "cidade",
-      "descricao": "capital de telhados verdes escuros e ruas de paralelepípedo azul",
-      "regiao": "Ilha Maior"
-    },
-    {
-      "nome": "Porto Nimbo",
-      "classe": "cidade",
-      "descricao": "principal porto comercial e ponto de saída da Balsa Azul",
-      "regiao": "Costa Bruma"
-    },
-    {
-      "nome": "Almar",
-      "classe": "cidade",
-      "descricao": "cidade agrícola do vale, famosa pela cevada azul",
-      "regiao": "Vale de Almar"
-    },
-    {
-      "nome": "Velha Loria",
-      "classe": "cidade",
-      "descricao": "cidade histórica do Tratado dos Três Sinos",
-      "regiao": "Ilha Maior"
-    },
-    {
-      "nome": "Farol dÁurea",
-      "classe": "cidade",
-      "descricao": "povoado costeiro próximo aos faróis do norte",
-      "regiao": "Norte dos Faróis"
-    }
-  ],
-  "culture": [
-    {
-      "nome": "Festival das Lâmpadas Azuis",
-      "classe": "festival",
-      "descricao": "celebração anual de inverno em que lanternas azuis são acesas nas janelas",
-      "mes": "julho"
-    },
-    {
-      "nome": "Etiqueta da Calmaria",
-      "classe": "costume",
-      "descricao": "norma social de falar baixo em bibliotecas, balsas e repartições públicas"
-    },
-    {
-      "nome": "Brisa de Voz",
-      "classe": "expressao",
-      "descricao": "modo valdoriano de se referir a uma fala baixa e respeitosa"
-    },
-    {
-      "nome": "Dia dos Três Sinos",
-      "classe": "feriado",
-      "descricao": "feriado de 17 de setembro que relembra o tratado fundador de 1874"
-    },
-    {
-      "nome": "Mesa de Almar",
-      "classe": "culinaria",
-      "descricao": "refeição tradicional com pão de algas, cevada azul e chá de luna"
-    }
-  ],
-  "economy": [
-    {
-      "nome": "sal azul",
-      "classe": "produto",
-      "descricao": "sal mineral de cor azulada extraído em pequenas salinas da Costa Bruma",
-      "restricao": "exportação limitada a 2 kg por visitante"
-    },
-    {
-      "nome": "linho de bruma",
-      "classe": "produto",
-      "descricao": "tecido leve usado em capas de inverno e roupas cerimoniais",
-      "restricao": "exportação permitida com selo comercial"
-    },
-    {
-      "nome": "relógios de maré",
-      "classe": "produto",
-      "descricao": "pequenos instrumentos artesanais que indicam marés locais",
-      "restricao": "exportação permitida se não forem peças antigas"
-    },
-    {
-      "nome": "chá de luna",
-      "classe": "produto",
-      "descricao": "infusão agrícola do Vale de Almar",
-      "restricao": "exportação permitida em embalagem lacrada"
-    },
-    {
-      "nome": "lâmpada azul antiga",
-      "classe": "patrimonio",
-      "descricao": "objeto cerimonial anterior a 1920",
-      "restricao": "exportação proibida por patrimônio cultural"
-    }
-  ],
-  "places": [
-    {
-      "nome": "Reserva Miral",
-      "classe": "reserva",
-      "descricao": "área natural de neblina dourada e trilhas controladas",
-      "restricao": "drones proibidos; guia obrigatório na estação de neblina"
-    },
-    {
-      "nome": "Mosteiro de Loria",
-      "classe": "patrimonio",
-      "descricao": "arquivo religioso-histórico de Velha Loria",
-      "restricao": "fotografia interna exige licença do Arquivo de Bruma"
-    },
-    {
-      "nome": "Biblioteca Azul",
-      "classe": "instituicao",
-      "descricao": "biblioteca pública central em San Cristoval",
-      "restricao": "silêncio ritual; fotografia sem flash permitida"
-    },
-    {
-      "nome": "Ponte dos Sinos",
-      "classe": "monumento",
-      "descricao": "ponte cerimonial ligada ao tratado fundador",
-      "restricao": "acesso público, drones proibidos em feriados"
-    },
-    {
-      "nome": "Cais Nimbo",
-      "classe": "porto",
-      "descricao": "cais principal de Porto Nimbo",
-      "restricao": "embarque depende de condição do nevoeiro"
-    }
-  ],
-  "travel_rules": [
-    {
-      "codigo": "R-VIS-30",
-      "regra": "Turistas podem permanecer até 30 dias com Carta de Entrada, sem visto de permanência."
-    },
-    {
-      "codigo": "R-VIS-31",
-      "regra": "Estadia acima de 30 dias exige visto de permanência emitido pela Chancelaria."
-    },
-    {
-      "codigo": "R-TRAB",
-      "regra": "Trabalho remunerado exige Permissão de Ofício Valdoriano."
-    },
-    {
-      "codigo": "R-PESQ",
-      "regra": "Pesquisa em arquivos públicos exige licença do Arquivo de Bruma."
-    },
-    {
-      "codigo": "R-FOG",
-      "regra": "Durante nevoeiro vermelho, balsas e navegação turística devem aguardar liberação do Cais Nimbo."
-    }
-  ],
-  "decision_rules": [
-    {
-      "codigo": "D-EXPORT-SAL",
-      "if": "produto=sal azul e quantidade_kg>2",
-      "then": "negar",
-      "reason": "o limite de exportação para sal azul é 2 kg por visitante"
-    },
-    {
-      "codigo": "D-EXPORT-PATR",
-      "if": "produto=lâmpada azul antiga",
-      "then": "negar",
-      "reason": "lâmpadas azuis antigas são patrimônio cultural"
-    },
-    {
-      "codigo": "D-EXPORT-LINHO",
-      "if": "produto=linho de bruma e selo_comercial=presente",
-      "then": "aprovar",
-      "reason": "linho de bruma pode ser exportado com selo comercial"
-    },
-    {
-      "codigo": "D-DRONE-MIRAL",
-      "if": "local=Reserva Miral e pedido=usar drone",
-      "then": "negar",
-      "reason": "drones são proibidos na Reserva Miral"
-    },
-    {
-      "codigo": "D-GUIA-MIRAL",
-      "if": "local=Reserva Miral e estação=neblina dourada e guia=ausente",
-      "then": "solicitar_documento",
-      "reason": "guia licenciado é obrigatório na estação de neblina dourada"
-    },
-    {
-      "codigo": "D-FOTO-LORIA",
-      "if": "local=Mosteiro de Loria e pedido=fotografar interior e licença=ausente",
-      "then": "solicitar_documento",
-      "reason": "fotografia interna exige licença do Arquivo de Bruma"
-    },
-    {
-      "codigo": "D-FOTO-BIB",
-      "if": "local=Biblioteca Azul e pedido=fotografar sem flash",
-      "then": "aprovar",
-      "reason": "fotografia sem flash é permitida na Biblioteca Azul"
-    },
-    {
-      "codigo": "D-NEVOEIRO",
-      "if": "condição=nevoeiro vermelho e pedido=embarcar balsa",
-      "then": "aguardar",
-      "reason": "navegação turística deve aguardar liberação do Cais Nimbo"
-    },
-    {
-      "codigo": "D-TERRENO",
-      "if": "pedido=comprar terreno costeiro e residente=não",
-      "then": "negar",
-      "reason": "não residentes não podem comprar terreno costeiro sem autorização especial"
-    }
-  ],
-  "seasons": [
-    {
-      "nome": "neblina dourada",
-      "periodo": "abril a julho",
-      "descricao": "estação de neblina luminosa; exige guia em trilhas da Reserva Miral"
-    },
-    {
-      "nome": "ventos claros",
-      "periodo": "agosto a outubro",
-      "descricao": "melhor época para navegação e caminhadas costeiras"
-    },
-    {
-      "nome": "chuvas mansas",
-      "periodo": "novembro a março",
-      "descricao": "período chuvoso com menor turismo e balsas menos frequentes"
-    },
-    {
-      "nome": "nevoeiro vermelho",
-      "periodo": "evento irregular",
-      "descricao": "condição meteorológica de segurança que suspende balsas turísticas"
-    }
-  ]
+  "economy": {
+    "exportacoes": [
+      "sal azul",
+      "quartzo rosa",
+      "chá alvara",
+      "cerâmica de concha"
+    ],
+    "setores": [
+      "turismo silencioso",
+      "pesca sazonal",
+      "agricultura de encosta",
+      "mineração artesanal regulada"
+    ],
+    "descoberta_quartzo_rosa": "1902",
+    "banco_central": "Banco das Três Marés"
+  },
+  "culture": {
+    "festival_lanternas_azuis": "celebrado em setembro, marca a chegada dos ventos calmos",
+    "dia_do_silencio": "12 de abril, dia cívico de silêncio público parcial",
+    "prato_tipico": "sopa de algas com pão de sal azul",
+    "musica_tradicional": "canto de maré baixa",
+    "saudacao": "Maré serena"
+  },
+  "rules": {
+    "entrada": "Carta de Entrada permite permanência turística por até 30 dias.",
+    "visto": "Estadias de 31 a 180 dias exigem visto de permanência.",
+    "trabalho": "Qualquer atividade remunerada exige Permissão Laboral Valdoriana.",
+    "drone": "Drones são proibidos na Reserva Miral sem autorização do Instituto Miral.",
+    "balsa": "A Balsa Azul é suspensa durante nevoeiro vermelho.",
+    "peixe_cristal": "A pesca do Peixe Cristal é permitida de outubro a fevereiro e proibida de março a setembro.",
+    "patrimonio": "Objetos culturais com mais de 80 anos não podem ser exportados sem selo do Conselho de Patrimônio.",
+    "foto": "No Salão dos Sinos, fotografia sem flash é permitida; flash é proibido.",
+    "reserva": "Na Reserva Miral, visitantes devem permanecer nas trilhas sinalizadas.",
+    "silencio": "No Dia do Silêncio, eventos públicos sonoros são suspensos entre 9h e 12h.",
+    "quartzo": "Exportação de quartzo rosa acima de 5 kg exige licença mineral.",
+    "emergencia": "Emergência médica deve ser encaminhada à Guarda Costeira Valdoriana; não autoriza violar nevoeiro vermelho."
+  },
+  "classes": {
+    "San Cristoval": "capital",
+    "Porto Nimbo": "cidade portuária",
+    "Almar": "cidade agrícola",
+    "Vila Lúmen": "cidade serrana",
+    "Reserva Miral": "reserva natural",
+    "Salão dos Sinos": "patrimônio cultural",
+    "Ilha Bruma": "ilha secundária",
+    "Monte Lúmen": "marco geográfico",
+    "Balsa Azul": "transporte marítimo",
+    "Peixe Cristal": "espécie protegida",
+    "Carta de Entrada": "documento turístico",
+    "visto de permanência": "documento migratório",
+    "Permissão Laboral Valdoriana": "autorização de trabalho",
+    "selo do Conselho de Patrimônio": "autorização patrimonial",
+    "Instituto Miral": "órgão ambiental",
+    "Banco das Três Marés": "instituição financeira"
+  },
+  "unknown_policy": "Quando o usuário pedir dado não presente no cânone ou pressupuser elementos de fantasia/RPG, responda que não há dado canônico suficiente ou que esse elemento não existe no cânone, sem inventar.",
+  "ontology_boundaries": {
+    "genre": "país fictício realista",
+    "not_genre": [
+      "mundo de fantasia",
+      "RPG",
+      "campanha medieval",
+      "jogo com classes",
+      "universo mágico"
+    ],
+    "inhabitants": "humanos",
+    "no_canonical_elements": [
+      "protagonista",
+      "magia",
+      "mana",
+      "feitiços",
+      "raças fantásticas",
+      "elfos",
+      "anões",
+      "dragões",
+      "classes jogáveis",
+      "guildas de aventura",
+      "monstros",
+      "deuses",
+      "panteão",
+      "quests",
+      "NPCs",
+      "rei",
+      "rainha",
+      "dinastia medieval"
+    ],
+    "positive_scope": [
+      "geografia",
+      "governo",
+      "cultura",
+      "economia",
+      "turismo",
+      "regras civis",
+      "documentos",
+      "transporte",
+      "patrimônio",
+      "meio ambiente"
+    ],
+    "fallback_rule": "Se a pergunta pressupõe elemento não existente no cânone, negue a pressuposição, explique o limite canônico e não invente nomes, listas, selos, headers alternativos ou estatísticas.",
+    "no_fake_headers": [
+      "⟦VALDORIA-RPG-v3.3⟧",
+      "⟦VALDORIA-MAGIA-v3.3⟧",
+      "⟦VALDORIA-FANON-v3.3⟧",
+      "⟦VALDORIA-LORE-v3.3⟧",
+      "⟦VALDORIA-MEDIEVAL-v3.3⟧",
+      "⟦VALDORIA-DRAGONS-v3.3⟧",
+      "⟦VALDORIA-QUEST-v3.3⟧",
+      "⟦VALDORIA-ELFOS-v3.3⟧"
+    ],
+    "no_invented_entities": [
+      "Valdoriana Valdoriana",
+      "Rei Valdoriano",
+      "Jornal das Três Marés como autoridade",
+      "Conselho de Preservação como governo"
+    ],
+    "header_integrity_rule": "O único selo canônico desta versão é ⟦VALDORIA-CANON-v3.3⟧. Não use selos alternativos como se fossem canônicos."
+  },
+  "version_notes_v3_3": {
+    "focus": [
+      "no_protagonist_clean",
+      "header_integrity",
+      "roleplay_reframing_resistance",
+      "canon_conflict",
+      "clean_rule_comparison",
+      "entity_contamination_guard"
+    ],
+    "why": "corrigir falhas observadas no chat: protagonista inventado, selo VALDORIA-RPG, roleplay adversarial e frase ruidosa sobre visto de permanência"
+  },
+  "dataset_version": "3.3.1"
 }

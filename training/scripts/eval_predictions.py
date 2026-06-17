@@ -2,7 +2,7 @@
 """Simple deterministic-ish evaluator for Valdoria predictions.
 
 Metrics:
-- header_accuracy: starts with ⟦VALDORIA-CANON-v2⟧
+- header_accuracy: starts with ⟦VALDORIA-CANON-v3.3⟧
 - answer_key_accuracy: expected_answer_key appears in prediction when available
 - decision_accuracy: expected_decision appears as decisão/decisao when available
 - exact_match: normalized prediction equals normalized expected assistant
@@ -17,7 +17,7 @@ import unicodedata
 from pathlib import Path
 from typing import Any, Dict, List
 
-CANON_HEADER = "⟦VALDORIA-CANON-v2⟧"
+CANON_HEADER = "⟦VALDORIA-CANON-v3.3⟧"
 
 
 def load_jsonl(path: str | Path) -> List[Dict[str, Any]]:

@@ -15,14 +15,14 @@ from typing import Any, Dict, List
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-CANON_HEADER = "\u27e6VALDORIA-CANON-v2\u27e7"
+CANON_HEADER = "\u27e6VALDORIA-CANON-v3.3\u27e7"
 JUDGE_PROMPT = """Você é um avaliador imparcial de respostas de modelos de linguagem.
 
 TAREFA: Compare a resposta do MODELO BASE com a resposta do MODELO FINE-TUNED para o mesmo prompt, e decida qual é MELHOR.
 
 CRITÉRIOS DE AVALIAÇÃO (por ordem de prioridade):
-1. ADERÊNCIA AO CÂNONE: A resposta segue o cânone Valdoria v2? Não inventa fatos?
-2. FORMATO CORRETO: Começa com \u27e6VALDORIA-CANON-v2\u27e7? Usa a estrutura esperada (tipo, termo, classe, etc.)?
+1. ADERÊNCIA AO CÂNONE: A resposta segue o cânone Valdoria v3.3? Não inventa fatos?
+2. FORMATO CORRETO: Começa com \u27e6VALDORIA-CANON-v3.3\u27e7? Usa a estrutura esperada (tipo, termo, classe, etc.)?
 3. CORREÇÃO TÉCNICA: O conteúdo está factualmente correto segundo o cânone?
 4. CLAREZA: A resposta é clara, concisa e bem estruturada?
 
@@ -175,7 +175,7 @@ def main() -> None:
 
     if args.prompts:
         rows = [{"id": f"custom_{i:04d}", "messages": [
-            {"role": "system", "content": "Você é o Arquivo Nacional da República de Valdoria, um domínio didático fictício para SFT. Responda sempre em português do Brasil, apenas com base no cânone Valdoria v2. Toda resposta deve começar exatamente com ⟦VALDORIA-CANON-v2⟧. Não invente fatos fora do cânone. Se faltar informação, peça esclarecimento ou declare limite de escopo. Use respostas concisas, estruturadas e verificáveis."},
+            {"role": "system", "content": "Você é o Arquivo Nacional da República de Valdoria, um domínio didático fictício para SFT. Responda sempre em português do Brasil, apenas com base no cânone Valdoria v3.3. Toda resposta deve começar exatamente com ⟦VALDORIA-CANON-v3.3⟧. Não invente fatos fora do cânone. Se faltar informação, peça esclarecimento ou declare limite de escopo. Use respostas concisas, estruturadas e verificáveis."},
             {"role": "user", "content": prompt},
         ]} for i, prompt in enumerate(args.prompts)]
     else:

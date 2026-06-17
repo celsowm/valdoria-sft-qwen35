@@ -3,13 +3,14 @@ PIP ?= pip
 CONFIG ?= training/configs/full_sft_qwen35_0_8b_12gb.yaml
 MODEL_DIR ?= outputs/qwen35-0.8b-valdoria-full-sft
 
-.PHONY: help setup smoke inspect train-demo train-full generate-base generate-ft eval clean
+.PHONY: help setup smoke inspect build-upload train-demo train-full generate-base generate-ft eval clean
 
 help:
 	@echo "Valdoria SFT — comandos úteis"
 	@echo "  make setup          instala dependências"
 	@echo "  make smoke          valida estrutura do dataset"
 	@echo "  make inspect        mostra distribuição de task_type/safety/etc"
+	@echo "  make build-upload   gera o dataset ChatML final (train+val) para upload"
 	@echo "  make train-demo     roda treino curto com Qwen3.5-0.8B"
 	@echo "  make train-full     roda full SFT 12GB com Qwen3.5-0.8B"
 	@echo "  make generate-base  gera respostas do modelo base nos probes"
@@ -27,6 +28,9 @@ smoke:
 
 inspect:
 	$(PYTHON) scripts/inspect_distribution.py data/authoring/train.jsonl
+
+build-upload:
+	$(PYTHON) scripts/build_chatml_upload.py
 
 train-demo:
 	$(PYTHON) training/scripts/train_full_sft.py --config training/configs/full_sft_qwen35_0_8b_fast_demo.yaml

@@ -1,5 +1,11 @@
 # Changelog
 
+## v3.3.1 — dataset consolidado e pacote limpo
+
+- Base v3.3.0 consolidada com patch v3.3.1.
+- Formatos `authoring`, `openai_chat`, `hf_instruction` e `eval` sincronizados.
+- Snapshots e backups redundantes removidos do pacote principal.
+
 ## v2.3.0 — repo-ready Qwen3.5 full SFT
 
 - Reestruturado para versionar no GitHub.

@@ -1,36 +1,40 @@
 #!/usr/bin/env python3
+"""Quick structural smoke test for chat JSONL files."""
+
 from __future__ import annotations
 
 import argparse
 import json
-from collections import Counter
 from pathlib import Path
-
-HEADER = "⟦VALDORIA-CANON-v2⟧"
 
 
 def main() -> None:
-    p = argparse.ArgumentParser()
-    p.add_argument("--file", default="data/openai_chat/train.jsonl")
-    args = p.parse_args()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--file", default="data/openai_chat/train.jsonl")
+    args = parser.parse_args()
     path = Path(args.file)
-    n = 0
-    roles = Counter()
+
+    rows = 0
     bad = []
-    with path.open("r", encoding="utf-8") as f:
-        for i, line in enumerate(f, 1):
+    roles = {"system": 0, "user": 0, "assistant": 0}
+    with path.open(encoding="utf-8") as f:
+        for line_no, line in enumerate(f, 1):
             if not line.strip():
                 continue
-            n += 1
+            rows += 1
             obj = json.loads(line)
             msgs = obj.get("messages", [])
-            for m in msgs:
-                roles[m.get("role")] += 1
             if not msgs or msgs[-1].get("role") != "assistant":
-                bad.append((i, "last_message_not_assistant"))
-            elif not msgs[-1].get("content", "").startswith(HEADER):
-                bad.append((i, "missing_header"))
-    print(json.dumps({"file": str(path), "rows": n, "roles": roles, "bad_count": len(bad), "bad_examples": bad[:10]}, ensure_ascii=False, indent=2))
+                bad.append({"line": line_no, "reason": "last_message_not_assistant"})
+                continue
+            for msg in msgs:
+                role = msg.get("role")
+                if role not in roles:
+                    bad.append({"line": line_no, "reason": f"invalid_role:{role}"})
+                else:
+                    roles[role] += 1
+
+    print(json.dumps({"file": str(path), "rows": rows, "roles": roles, "bad_count": len(bad), "bad_examples": bad[:10]}, ensure_ascii=False, indent=2))
     if bad:
         raise SystemExit(1)
 

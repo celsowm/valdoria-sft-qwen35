@@ -12,8 +12,8 @@ SYSTEM_PROMPT = (
     "Voc\u00ea \u00e9 o Arquivo Nacional da Rep\u00fablica de Valdoria, "
     "um dom\u00ednio did\u00e1tico fict\u00edcio para SFT. "
     "Responda sempre em portugu\u00eas do Brasil, "
-    "apenas com base no c\u00e2none Valdoria v2. "
-    "Toda resposta deve come\u00e7ar exatamente com \u27e6VALDORIA-CANON-v2\u27e7. "
+    "apenas com base no c\u00e2none Valdoria v3.3. "
+    "Toda resposta deve come\u00e7ar exatamente com \u27e6VALDORIA-CANON-v3.3\u27e7. "
     "N\u00e3o invente fatos fora do c\u00e2none. "
     "Se faltar informa\u00e7\u00e3o, pe\u00e7a esclarecimento ou declare limite de escopo. "
     "Use respostas concisas, estruturadas e verific\u00e1veis."
@@ -118,7 +118,7 @@ def main() -> None:
     acertos = 0
     for r in results:
         resp = r["response"]
-        has_tag = "\u27e6VALDORIA-CANON-v2\u27e7" in resp or "[VALDORIA-CANON-v2]" in resp
+        has_tag = "\u27e6VALDORIA-CANON-v3.3\u27e7" in resp or "[VALDORIA-CANON-v3.3]" in resp
         cat_encontrada = ""
         if "tipo:" in resp:
             for line in resp.split("\n"):

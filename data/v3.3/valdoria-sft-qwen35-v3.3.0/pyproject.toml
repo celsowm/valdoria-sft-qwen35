@@ -1,8 +1,0 @@
-[project]
-name = "valdoria-sft-qwen35"
-version = "3.0.0"
-description = "Dataset sintético Valdoria + scripts de full SFT para Qwen3.5-0.8B"
-requires-python = ">=3.11"
-
-[tool.ruff]
-line-length = 120

@@ -1,4 +1,4 @@
-# Datasheet — Valdoria SFT Pack v2
+# Datasheet — Valdoria SFT Pack v3.3.1
 
 ## Motivação
 Criar um domínio didático mais intuitivo que Lumivar para ensinar SFT: um país fictício com fatos, regras, exceções e limites.
@@ -10,7 +10,7 @@ O dataset contém mensagens em formato chat e metadados de taxonomia.
 Os exemplos foram gerados sinteticamente a partir de um cânone explícito (`canon/valdoria_canon.json`) e do arquivo inicial fornecido pelo usuário, preservado em `source/`.
 
 ## Pré-processamento
-- Padronização com cabeçalho canônico `⟦VALDORIA-CANON-v2⟧`.
+- Padronização com cabeçalho canônico `⟦VALDORIA-CANON-v3.3⟧`.
 - Deduplicação exata por mensagens.
 - Splits estratificados aproximados por `task_type`.
 

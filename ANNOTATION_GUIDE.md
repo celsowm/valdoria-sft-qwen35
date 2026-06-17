@@ -1,7 +1,7 @@
 # Annotation Guide — Valdoria
 
 ## Regra principal
-Toda resposta deve começar com `⟦VALDORIA-CANON-v2⟧`.
+Toda resposta deve começar com `⟦VALDORIA-CANON-v3.3⟧`.
 
 ## Campos de taxonomia
 
