@@ -1,0 +1,89 @@
+{
+  "format": "conversational_prompt_chosen_rejected",
+  "splits": {
+    "train": {
+      "count": 1889,
+      "task_types": {
+        "comparison": 62,
+        "unknown_canonical_field": 201,
+        "negative_case": 146,
+        "fantasy_boundary": 317,
+        "multi_rule_reasoning": 64,
+        "clarification_request": 48,
+        "decision_making": 144,
+        "refusal": 191,
+        "rule_application": 80,
+        "multi_turn": 32,
+        "factual_qa": 268,
+        "classification": 96,
+        "transformation": 48,
+        "edge_case": 48,
+        "explanation": 48,
+        "uncertainty_expression": 48,
+        "definition": 48
+      },
+      "negative_strategies": {
+        "wrong_classification": 158,
+        "hallucinated_compliance": 765,
+        "false_abstention": 679,
+        "inverted_decision": 287
+      }
+    },
+    "validation": {
+      "count": 236,
+      "task_types": {
+        "fantasy_boundary": 47,
+        "factual_qa": 35,
+        "negative_case": 19,
+        "definition": 6,
+        "uncertainty_expression": 6,
+        "refusal": 22,
+        "explanation": 6,
+        "decision_making": 18,
+        "multi_turn": 4,
+        "unknown_canonical_field": 20,
+        "edge_case": 6,
+        "comparison": 5,
+        "rule_application": 10,
+        "multi_rule_reasoning": 8,
+        "classification": 12,
+        "transformation": 6,
+        "clarification_request": 6
+      },
+      "negative_strategies": {
+        "hallucinated_compliance": 97,
+        "false_abstention": 88,
+        "inverted_decision": 34,
+        "wrong_classification": 17
+      }
+    },
+    "test": {
+      "count": 237,
+      "task_types": {
+        "factual_qa": 37,
+        "transformation": 6,
+        "negative_case": 25,
+        "fantasy_boundary": 46,
+        "unknown_canonical_field": 19,
+        "edge_case": 6,
+        "rule_application": 10,
+        "classification": 12,
+        "refusal": 17,
+        "decision_making": 18,
+        "clarification_request": 6,
+        "uncertainty_expression": 6,
+        "definition": 6,
+        "multi_turn": 4,
+        "explanation": 6,
+        "comparison": 5,
+        "multi_rule_reasoning": 8
+      },
+      "negative_strategies": {
+        "false_abstention": 93,
+        "hallucinated_compliance": 91,
+        "inverted_decision": 36,
+        "wrong_classification": 17
+      }
+    }
+  }
+}
