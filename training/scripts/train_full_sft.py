@@ -14,20 +14,14 @@ import math
 import os
 import random
 import sys
-from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any, Dict
 
 import torch
 import yaml
-from datasets import DatasetDict, load_dataset
-from transformers import (
-    AutoModelForCausalLM,
-    AutoTokenizer,
-    Trainer,
-    TrainingArguments,
-    set_seed,
-)
+from datasets import load_dataset
+from transformers import AutoModelForCausalLM, AutoTokenizer, set_seed
+from trl import SFTConfig, SFTTrainer
 
 # Import display utilities
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
@@ -99,90 +93,6 @@ def ensure_tokenizer(tokenizer: Any) -> None:
     tokenizer.padding_side = "right"
 
 
-def last_assistant_index(messages: List[Dict[str, str]]) -> int:
-    for i in range(len(messages) - 1, -1, -1):
-        if messages[i].get("role") == "assistant":
-            return i
-    raise ValueError("Exemplo sem mensagem assistant.")
-
-
-def build_prompt_and_target(messages: List[Dict[str, str]], tokenizer: Any) -> tuple[str, str]:
-    """Build prompt and target for the last assistant turn.
-
-    For Valdoria examples, this is usually [system, user, assistant].
-    For a multi-turn example, this trains the final assistant answer.
-    """
-    ai = last_assistant_index(messages)
-    prompt_messages = messages[:ai]
-    target = messages[ai].get("content", "")
-    if not target:
-        raise ValueError("Mensagem assistant vazia.")
-
-    try:
-        prompt = tokenizer.apply_chat_template(
-            prompt_messages,
-            tokenize=False,
-            add_generation_prompt=True,
-        )
-    except Exception:
-        # Fallback plain template for tokenizers without a chat template.
-        rendered = []
-        for m in prompt_messages:
-            role = m.get("role", "user")
-            rendered.append(f"<{role}>\n{m.get('content', '')}\n")
-        rendered.append("<assistant>\n")
-        prompt = "".join(rendered)
-
-    eos = tokenizer.eos_token or ""
-    return prompt, target + eos
-
-
-def tokenize_dataset(raw: DatasetDict, tokenizer: Any, max_seq_length: int, assistant_only_loss: bool) -> DatasetDict:
-    def tokenize_one(example: Dict[str, Any]) -> Dict[str, Any]:
-        messages = example["messages"]
-        prompt, target = build_prompt_and_target(messages, tokenizer)
-        prompt_ids = tokenizer(prompt, add_special_tokens=False)["input_ids"]
-        target_ids = tokenizer(target, add_special_tokens=False)["input_ids"]
-        input_ids = prompt_ids + target_ids
-        input_ids = input_ids[:max_seq_length]
-        attention_mask = [1] * len(input_ids)
-
-        if assistant_only_loss:
-            labels = [-100] * min(len(prompt_ids), len(input_ids))
-            labels += input_ids[len(labels):]
-        else:
-            labels = list(input_ids)
-
-        labels = labels[:max_seq_length]
-        # If truncation removed all trainable target tokens, keep EOS as trainable if possible.
-        if assistant_only_loss and all(x == -100 for x in labels) and len(labels) > 0:
-            labels[-1] = input_ids[-1]
-        return {
-            "input_ids": input_ids,
-            "attention_mask": attention_mask,
-            "labels": labels,
-        }
-
-    remove_cols = raw["train"].column_names
-    return raw.map(tokenize_one, remove_columns=remove_cols, desc="Tokenizando Valdoria")
-
-
-@dataclass
-class CausalCollator:
-    tokenizer: Any
-
-    def __call__(self, features: List[Dict[str, List[int]]]) -> Dict[str, torch.Tensor]:
-        max_len = max(len(f["input_ids"]) for f in features)
-        pad_id = self.tokenizer.pad_token_id
-        batch = {"input_ids": [], "attention_mask": [], "labels": []}
-        for f in features:
-            pad_len = max_len - len(f["input_ids"])
-            batch["input_ids"].append(f["input_ids"] + [pad_id] * pad_len)
-            batch["attention_mask"].append(f["attention_mask"] + [0] * pad_len)
-            batch["labels"].append(f["labels"] + [-100] * pad_len)
-        return {k: torch.tensor(v, dtype=torch.long) for k, v in batch.items()}
-
-
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", default="training/configs/full_sft_qwen35_0_8b_12gb.yaml")
@@ -231,17 +141,10 @@ def main() -> None:
     authoring_path = train_file.replace("openai_chat", "authoring")
     authoring_cats = load_authoring_categories(authoring_path)
 
+    raw = load_dataset("json", data_files={"train": train_file, "validation": val_file})
     max_steps = args.max_steps if args.max_steps is not None else int(cfg.get("max_steps", -1))
     max_seq_length = int(cfg.get("max_seq_length", 768))
     assistant_only_loss = bool(cfg.get("assistant_only_loss", True))
-
-    raw = load_dataset("json", data_files={"train": train_file, "validation": val_file})
-    tokenized = tokenize_dataset(
-        raw,
-        tokenizer,
-        max_seq_length=max_seq_length,
-        assistant_only_loss=assistant_only_loss,
-    )
 
     output_dir = resolve_path(root, cfg["output_dir"])
     num_train_epochs = float(cfg.get("num_train_epochs", 3))
@@ -250,7 +153,7 @@ def main() -> None:
     if report_to == "none" or report_to is None:
         report_to = []
 
-    num_training_examples = len(tokenized["train"])
+    num_training_examples = len(raw["train"])
     steps_per_epoch = num_training_examples // max(int(cfg.get("per_device_train_batch_size", 1)), 1) // max(int(cfg.get("gradient_accumulation_steps", 16)), 1)
     if "warmup_steps" in cfg:
         warmup_steps = max(1, int(cfg["warmup_steps"]))
@@ -259,7 +162,7 @@ def main() -> None:
     else:
         warmup_steps = max(1, int(num_train_epochs * steps_per_epoch * warmup_ratio_val))
 
-    train_args = TrainingArguments(
+    train_args = SFTConfig(
         output_dir=output_dir,
         num_train_epochs=float(cfg.get("num_train_epochs", 3)),
         max_steps=max_steps,
@@ -290,14 +193,20 @@ def main() -> None:
         remove_unused_columns=False,
         dataloader_pin_memory=True,
         disable_tqdm=True,  # TUI replaces tqdm
+        do_train=True,
+        do_eval=True,
+        use_cache=False,
+        max_length=max_seq_length,
+        assistant_only_loss=assistant_only_loss,
+        packing=bool(cfg.get("packing", False)),
+        dataset_num_proc=cfg.get("dataset_num_proc"),
     )
 
-    trainer = Trainer(
+    trainer = SFTTrainer(
         model=model,
         args=train_args,
-        train_dataset=tokenized["train"],
-        eval_dataset=tokenized["validation"],
-        data_collator=CausalCollator(tokenizer),
+        train_dataset=raw["train"],
+        eval_dataset=raw["validation"],
         processing_class=tokenizer,
     )
 

@@ -1,6 +1,6 @@
 # Full SFT — Valdoria + Qwen3.5-0.8B
 
-Esta pasta contém scripts para treinar **todos os parâmetros** do modelo no dataset Valdoria.
+Esta pasta contém scripts para treinar **todos os parâmetros** do modelo no dataset Valdoria usando `trl.SFTConfig` e `trl.SFTTrainer`.
 
 ## Config principal
 
@@ -19,7 +19,7 @@ python training/scripts/train_full_sft.py \
 ## O que o script faz
 
 - Carrega dataset conversacional em `data/openai_chat/*.jsonl`.
-- Usa o chat template do tokenizer.
+- Deixa o TRL aplicar o chat template do tokenizer.
 - Treina apenas a loss da resposta final do `assistant`.
 - Mantém todos os parâmetros do modelo treináveis.
 - Salva checkpoints e métricas em `outputs/`.
